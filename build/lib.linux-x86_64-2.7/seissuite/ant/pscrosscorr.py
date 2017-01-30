@@ -2094,9 +2094,22 @@ class CrossCorrelationCollection(AttribDict):
         for (s1name, tr1), (s2name, tr2) in stationtrace_pairs:
             if verbose:
                 print "{s1}-{s2}".format(s1=s1name, s2=s2name),
+                
+                
+            print tr1.stats.sampling_rate
+            print tr2.stats.sampling_rate
+#
+#            # checking that sampling rates are equal
+#            
+#            if tr1.stats.sampling_rate < tr2.stats.sampling_rate:
+#                psutils.resample(tr2, tr1.stats.sampling_rate)
+#
+#            if tr2.stats.sampling_rate < tr1.stats.sampling_rate:
+#                psutils.resample(tr1, tr2.stats.sampling_rate)
 
-            # checking that sampling rates are equal
-            assert tr1.stats.sampling_rate == tr2.stats.sampling_rate
+
+            if tr1.stats.sampling_rate != tr2.stats.sampling_rate:
+                pass
 
             # looking for s1 and s2 in the list of stations
             station1 = next(s for s in stations if s.name == s1name)

@@ -122,7 +122,7 @@ class Preprocess:
         self.window_freq = window_freq
         
     def remove_resp(self, trace, paz=None):
-        
+
         # removing response...
         if paz:
             # ...using paz:
@@ -144,7 +144,6 @@ class Preprocess:
                          freqmax=self.freqmax,
                          corners=self.corners,
                          zerophase=self.zerophase)
-            psutils.resample(trace, dt_resample=self.period_resample)
             trace.remove_response(output="VEL", zero_mean=True)
         return trace
 
@@ -295,6 +294,8 @@ class Preprocess:
             # no data -> skipping trace
             raise pserrors.CannotPreprocess("Only zeros")
         
+        psutils.resample(trace, dt_resample=self.period_resample)
+
         # ==========================
         # Remove instrument response
         # ==========================
@@ -520,7 +521,7 @@ class Preprocess:
         # MAKE THIS AN OPTION IN THE CONFIGURATION FILES!        
         #st = st.select(component='Z')
         #st.plot()
-        #quit()
+        #   quit()
         
         #st = read(pathname_or_url=station.getpath(date),
         #          starttime=t0 - dt.timedelta(hours=1),
