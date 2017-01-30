@@ -487,7 +487,7 @@ starttime <= ? AND endtime >= ?', (search_start, search_end))
         # close timeline.db database
         conn.close()
 
-        iterate_stations = iterate_stations[1:]
+        #iterate_stations = iterate_stations[1:]
         # =====================================================================
         # =====================================================================            
 
@@ -559,48 +559,24 @@ starttime <= ? AND endtime >= ?', (search_start, search_end))
     
             Function is ready to be parallelized.
             """
-            
-
-
-            #if not trace or response is False:
-            #    return
-            
-    	    if not type(trace) is Trace:
-		print trace
-		#plt.figure()
-		#plt.plot(trace)
-		#plt.show()
-		#quit()
-		return
-
-
-        #try:
-
+            if not type(trace) is Trace:
+                print trace
+                return
+            #try:
             Preprocess.preprocess_trace(trace=trace, paz=response, 
-                                        verbose=False)
+                                            verbose=False)
             msg = 'ok'
             if total_verbose:
                 print '{}.{} [{}] '.format(trace.stats.network, 
-                                            trace.stats.station, 
-                                            msg),
-#    
-#            except pserrors.CannotPreprocess as err:
-#                # cannot preprocess if no instrument response was found,
-#                # trace data are not consistent etc. (see function's doc)
-#                trace = None
-#                print(err)
-#                print 'skipping'
-#    
-#            except Exception as err:
-#                # unhandled exception!
-#                trace = None
-#                print(err)
-                print 'skipping'
-    
-            # printing output (error or ok) message
-    
-            # although processing is performed in-place, trace is returned
-            # in order to get it back after multi-processing
+                                               trace.stats.station, 
+                                               msg),
+
+
+            #except Exception as error:
+            #    print error
+            #    print 'skipping'
+
+
             return trace
     
         # ====================================
