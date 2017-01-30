@@ -562,19 +562,19 @@ starttime <= ? AND endtime >= ?', (search_start, search_end))
             if not type(trace) is Trace:
                 print trace
                 return
-            #try:
-            Preprocess.preprocess_trace(trace=trace, paz=response, 
+            try:
+                Preprocess.preprocess_trace(trace=trace, paz=response, 
                                             verbose=False)
-            msg = 'ok'
-            if total_verbose:
-                print '{}.{} [{}] '.format(trace.stats.network, 
+                msg = 'ok'
+                if total_verbose:
+                    print '{}.{} [{}] '.format(trace.stats.network, 
                                                trace.stats.station, 
                                                msg),
 
 
-            #except Exception as error:
-            #    print error
-            #    print 'skipping'
+            except Exception as error:
+                print error
+                print 'skipping'
 
 
             return trace
